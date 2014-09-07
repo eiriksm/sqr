@@ -17,7 +17,9 @@
     "url": "https://github.com/eiriksm/sqr/issues"
   },
   "homepage": "https://github.com/eiriksm/sqr",
-  "engine": "node 0.10.x",
+  "engines" : { 
+    "node" : ">=0.10.0 <0.11" 
+  },
   "dependencies": {
   }
 }
