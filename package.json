@@ -1,0 +1,23 @@
+{
+  "name": "sqr",
+  "version": "1.0.0",
+  "description": "sqr ===",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eiriksm/sqr.git"
+  },
+  "author": "Eirik S. Morland <eirik@morland.no>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eiriksm/sqr/issues"
+  },
+  "homepage": "https://github.com/eiriksm/sqr",
+  "dependencies": {
+    "leveldown": "^1.0.0",
+    "levelup": "^0.19.0"
+  }
+}
