@@ -1,6 +1,6 @@
 var Hapi = require('hapi');
 
-var port = process.env.NODE_PORT || 9876;
+var port = process.env.PORT || 9876;
 var server = new Hapi.Server('localhost', port);
 
 // Add the route
