@@ -1,18 +1,17 @@
-var levelup = require('levelup')
+var Hapi = require('hapi');
 
-// 1) Create our database, supply location and options.
-//    This will create or open the underlying LevelDB store.
-var db = levelup('./mydb')
+var port = process.env.NODE_PORT || 9876;
+var server = new Hapi.Server('localhost', port);
 
-// 2) put a key & value
-db.put('name', 'LevelUP', function (err) {
-  if (err) return console.log('Ooops!', err) // some kind of I/O error
+// Add the route
+server.route({
+    method: 'GET',
+    path: '/hello',
+    handler: function (request, reply) {
 
-  // 3) fetch by key
-  db.get('name', function (err, value) {
-    if (err) return console.log('Ooops!', err) // likely the key was not found
+        reply('hello world');
+    }
+});
 
-    // ta da!
-    console.log('name=' + value)
-  })
-})
+// Start the server
+server.start();
