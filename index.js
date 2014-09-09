@@ -1,7 +1,7 @@
 var Hapi = require('hapi');
 
 var port = process.env.PORT || 9876;
-var server = new Hapi.Server('localhost', port);
+var server = new Hapi.Server(80);
 
 // Add the route
 server.route({
