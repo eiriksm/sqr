@@ -5,14 +5,33 @@ var db = require('./db');
 var port = process.env.PORT || 9876;
 var server = new Hapi.Server(port);
 
-// Add the route
+// Add the routes
+server.route({
+  method: 'GET',
+  path: '/',
+  handler: {
+    file: {
+      path: './static/index.html'
+    }
+  }
+});
+server.route({
+  method: 'GET',
+  path: '/static/{path*}',
+  handler: {
+    directory: {
+      path: './static',
+      index: true
+    }
+  }
+});
 server.route({
   method: 'GET',
   path: '/api/data/{key}',
   handler: function (request, reply) {
     db.get(encodeURIComponent(request.params.key), function(e, v) {
       if (e && e.notFound) {
-        reply('Not found').code(404);
+        reply().code(404);
         return;
       }
       reply(v);
@@ -28,10 +47,11 @@ server.route({
         reply(e);
         return;
       }
-      reply('cool');
+      reply('').code(201);
     });
   }
 });
 
 // Start the server
 server.start();
+module.exports = server;

@@ -25,5 +25,11 @@
     "hapi": "^6.8.0",
     "leveldown": "^1.0.0",
     "levelup": "git+https://github.com/eiriksm/node-levelup#down1-0"
+  },
+  "devDependencies": {
+    "browserify": "^5.11.1",
+    "gulp": "^3.8.8",
+    "lab": "^4.3.0",
+    "should": "^4.0.4"
   }
 }
