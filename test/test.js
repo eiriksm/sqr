@@ -4,17 +4,18 @@ var lab = exports.lab = Lab.script();
 var describe = lab.describe;
 var it = lab.it;
 var should = require('should');
+var request = require('supertest');
 
 var server = require('..');
+var req = request(server.listener);
 var db = require('../db');
 
 describe('App routes', function() {
   it('Should reply as expected on an unknown key', function(done) {
     var random = 'testkey' + Math.random();
-    server.inject({
-      method: 'GET',
-      url: '/api/data/' + random
-    }, function(res) {
+    req
+    .get('/api/data/' + random)
+    .end(function(r, res) {
       res.statusCode.should.equal(404);
       done();
     });
@@ -22,13 +23,11 @@ describe('App routes', function() {
   it('Should give back the expected value on a known key', function(done) {
     var key = 'testkey' + Math.random();
     db.set(key, {key: key}, function() {
-      server.inject({
-        method: 'GET',
-        url: '/api/data/' + key
-      }, function(res) {
+      req
+      .get('/api/data/' + key)
+      .end(function(r, res) {
         res.statusCode.should.equal(200);
-        res.payload.should.equal('{"key":"' + key + '"}');
-        // Make sure we clean up as well.
+        res.text.should.equal('{"key":"' + key + '"}');
         db.del(key, function(e) {
           done(e);
         });
@@ -37,17 +36,15 @@ describe('App routes', function() {
   });
   it('Should save a value on POSTing, and give it back on GET', function(done) {
     var key = 'testkey' + Math.random();
-    server.inject({
-      method: 'POST',
-      url: '/api/data/' + key,
-      payload: JSON.stringify({key: key})
-    }, function(res) {
+    req
+    .post('/api/data/' + key)
+    .send({key: key})
+    .end(function(r, res) {
       res.statusCode.should.equal(201);
-      server.inject({
-        method: 'GET',
-        url: '/api/data/' + key
-      }, function(r) {
-        r.payload.should.equal('{"key":"' + key + '"}');
+      req
+      .get('/api/data/' + key)
+      .end(function(r, res) {
+        res.text.should.equal('{"key":"' + key + '"}');
         done();
       });
     });
