@@ -6,6 +6,8 @@ var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var prefix = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
+var gutil = require('gulp-util');
+var webpack = require('gulp-webpack');
 
 gulp.task('scripts', function() {
   browserify('./static/js/app.js')
@@ -26,6 +28,14 @@ gulp.task('css', function() {
     }))
     .pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
     .pipe(rename('css.min.css'))
+    .pipe(gulp.dest('./static/build'));
+});
+
+gulp.task('webpack', function(callback) {
+  return gulp.src('./static/js/app.js')
+    .pipe(webpack({ /* webpack configuration */ }))
+    .pipe(uglify())
+    .pipe(rename('js.min.js'))
     .pipe(gulp.dest('./static/build'));
 });
 
