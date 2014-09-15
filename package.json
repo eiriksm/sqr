@@ -5,11 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "lab",
-    "start": "node index"
+    "start": "node index",
+    "install": "napa"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/eiriksm/sqr.git"
+  },
+  "napa": {
+    "angular": "https://github.com/angular/bower-angular",
+    "angular-route": "https://github.com/angular/bower-angular-route"
   },
   "author": "Eirik S. Morland <eirik@morland.no>",
   "license": "MIT",
@@ -17,10 +22,6 @@
     "url": "https://github.com/eiriksm/sqr/issues"
   },
   "homepage": "https://github.com/eiriksm/sqr",
-  "engines": {
-    "node": "0.8.0"
-  },
-  "engineStrict": true,
   "dependencies": {
     "hapi": "^6.8.0",
     "leveldown": "^1.0.0",
@@ -37,8 +38,10 @@
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.0.1",
     "lab": "^4.3.0",
+    "napa": "^0.4.1",
     "should": "^4.0.4",
     "supertest": "^0.13.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+    "gulp-webpack": "^0.3.0"
   }
 }

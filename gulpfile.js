@@ -6,7 +6,6 @@ var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var prefix = require('gulp-autoprefixer');
 var rename = require('gulp-rename');
-var gutil = require('gulp-util');
 var webpack = require('gulp-webpack');
 
 gulp.task('scripts', function() {
