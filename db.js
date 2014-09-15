@@ -1,5 +1,5 @@
 var levelup = require('levelup');
-var db = levelup('./mydb');
+var db = levelup('./leveldb');
 
 exports.set = function(key, val, callback) {
   var _callback = callback || function() {};
