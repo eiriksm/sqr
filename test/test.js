@@ -10,6 +10,7 @@ var server = require('..');
 server.nameSpace = 'test';
 var req = request(server.listener);
 var db = require('../db');
+var key = 'testkey' + Math.random();
 
 describe('App routes', function() {
   it('Should reply as expected on an unknown key', function(done) {
@@ -22,7 +23,6 @@ describe('App routes', function() {
     });
   });
   it('Should give back the expected value on a known key', function(done) {
-    var key = 'testkey' + Math.random();
     db.set(server.nameSpace + ':sqr:' + key, {key: key}, function() {
       req
       .get('/api/data/' + key)
@@ -36,7 +36,6 @@ describe('App routes', function() {
     });
   });
   it('Should save a value on POSTing, and give it back on GET', function(done) {
-    var key = 'testkey' + Math.random();
     req
     .post('/api/data/' + key)
     .send({key: key})
@@ -47,6 +46,26 @@ describe('App routes', function() {
       .end(function(r, res) {
         res.text.should.equal('{"key":"' + key + '"}');
         done();
+      });
+    });
+  });
+  it('Should return a range on /api/data', function(done) {
+    req
+    .get('/api/data')
+    .end(function(r, res) {
+      res.statusCode.should.equal(200);
+      // Should have a length.
+      var all = JSON.parse(res.text);
+      // See if the latest key is in there.
+      var isthere = false;
+      all.forEach(function(n) {
+        if (n.key === server.nameSpace + ':sqr:' + key) {
+          isthere = true;
+        }
+      });
+      isthere.should.equal(true);
+      db.del(key, function(e) {
+        done(e);
       });
     });
   });

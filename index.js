@@ -30,10 +30,6 @@ server.route({
   path: '/api/data',
   handler: function (request, reply) {
     db.getRange(server.nameSpace + ':sqr', server.nameSpace + 'sqr:' + '\xff', function(e, v) {
-      if (e && e.notFound) {
-        reply().code(404);
-        return;
-      }
       reply(v);
     });
   }
