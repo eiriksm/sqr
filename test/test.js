@@ -7,6 +7,7 @@ var should = require('should');
 var request = require('supertest');
 
 var server = require('..');
+server.nameSpace = 'test';
 var req = request(server.listener);
 var db = require('../db');
 
@@ -22,7 +23,7 @@ describe('App routes', function() {
   });
   it('Should give back the expected value on a known key', function(done) {
     var key = 'testkey' + Math.random();
-    db.set(key, {key: key}, function() {
+    db.set(server.nameSpace + ':sqr:' + key, {key: key}, function() {
       req
       .get('/api/data/' + key)
       .end(function(r, res) {

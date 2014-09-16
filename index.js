@@ -27,9 +27,22 @@ server.route({
 });
 server.route({
   method: 'GET',
+  path: '/api/data',
+  handler: function (request, reply) {
+    db.getRange(server.nameSpace + ':sqr', server.nameSpace + 'sqr:' + '\xff', function(e, v) {
+      if (e && e.notFound) {
+        reply().code(404);
+        return;
+      }
+      reply(v);
+    });
+  }
+});
+server.route({
+  method: 'GET',
   path: '/api/data/{key}',
   handler: function (request, reply) {
-    db.get(encodeURIComponent(request.params.key), function(e, v) {
+    db.get(server.nameSpace + ':sqr:' + encodeURIComponent(request.params.key), function(e, v) {
       if (e && e.notFound) {
         reply().code(404);
         return;
@@ -42,7 +55,7 @@ server.route({
   method: 'POST',
   path: '/api/data/{key}',
   handler: function (request, reply) {
-    db.set(encodeURIComponent(request.params.key), request.payload, function(e) {
+    db.set(server.nameSpace + ':sqr:' + encodeURIComponent(request.params.key), request.payload, function(e) {
       if (e) {
         reply(e);
         return;
@@ -54,4 +67,5 @@ server.route({
 
 // Start the server
 server.start();
+server.nameSpace = 'sqr';
 module.exports = server;
