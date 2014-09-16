@@ -25,6 +25,29 @@ exports.get = function(key, callback) {
   });
 };
 
+exports.getRange = function(start, end, callback) {
+  var data = [];
+  var _callback = function(e, v) {
+    if (callback) {
+      callback(e, v);
+    }
+    callback = null;
+  };
+  var s = db.createReadStream({
+    gte: start,
+    lte: end
+  });
+  s.on('data', function(d) {
+    data.push(d);
+  });
+  s.on('end', function() {
+    _callback(null, data);
+  });
+  s.on('error', function(e) {
+    _callback(e);
+  });
+};
+
 exports.del = function(key, callback) {
   return db.del(key, callback);
 };
