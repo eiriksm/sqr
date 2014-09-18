@@ -42,7 +42,7 @@ gulp.task('webpack', function(callback) {
 gulp.task('watch', function() {
 
   // Watch .scss files
-  gulp.watch(['static/js/**/*', 'static/sass/**/*'], ['css', 'scripts']);
+  gulp.watch(['static/js/**/*', 'static/sass/**/*'], ['css', 'webpack']);
 
 });
 
