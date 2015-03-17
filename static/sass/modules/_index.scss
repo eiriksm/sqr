@@ -1,0 +1,16 @@
+.index-page .row {
+  text-align: center;
+  .sqr {
+    margin: 0 auto;
+  }
+}
+.modal-dialog {
+  z-index: 1050;
+}
+.sqr-list-item {
+  float: left;
+  margin: .3em;
+  .sqr-svg {
+    width: 40px;
+  }
+}

@@ -1,0 +1,40 @@
+<div data-ng-controller="meCtrl">
+  <div ng-show="sqr">
+    <h1>Hello. My name is {{sqr.name}}</h1>
+    <sqr sqr="sqr"></sqr>
+    <form>
+      <div class="form-group">
+        <label for="sqrName">Name of sqr</label>
+        <input type="text" class="form-control" id="sqrName" data-ng-model="sqr.name" />
+      </div>
+      <div class="form-group">
+        <label for="sqrMood">Mood</label>
+        <select class="form-control" id="sqrMood" data-ng-model="sqr.mood">
+          <option>Normal</option>
+          <option>Angry</option>
+          <option>Happy</option>
+        </select>
+      </div>
+      <button class="btn btn-info" ng-click="saveSqr()">Save SQR</button>
+      <a href="#/" class="btn btn-success">Back to index</a>
+      <button class="btn btn-danger" ng-show="sqr" ng-click="showDeleteModal()">Delete SQR</button>
+    </form>
+  </div>
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Delete SQR</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you 100% certain you want to delete <strong>{{sqr.name}}?</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No, abort</button>
+          <button class="btn btn-danger" ng-click="deleteSqr()">Delete SQR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

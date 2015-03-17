@@ -26,3 +26,4 @@ build/Release
 node_modules
 
 leveldb
+.sass-cache
