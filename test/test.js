@@ -38,13 +38,13 @@ describe('App routes', function() {
   it('Should save a value on POSTing, and give it back on GET', function(done) {
     req
     .post('/api/data/' + key)
-    .send({key: key})
+    .send({name: key, id: key})
     .end(function(r, res) {
       res.statusCode.should.equal(201);
       req
       .get('/api/data/' + key)
       .end(function(r, res) {
-        res.text.should.equal('{"key":"' + key + '"}');
+        res.text.should.equal('{"name":"' + key + '","id":"' + key + '"}');
         done();
       });
     });
