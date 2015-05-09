@@ -20,8 +20,8 @@
   "dependencies": {
     "hapi": "^8.4.0",
     "joi": "^6.0.8",
-    "leveldown": "^1.0.1",
-    "levelup": "git+https://github.com/eiriksm/node-levelup#down1-0",
+    "leveldown": "^1.0.6",
+    "levelup": "^1.0.0-5",
     "lout": "^6.2.1"
   },
   "devDependencies": {
