@@ -1,14 +1,13 @@
 var Hapi = require('hapi');
 var t = require('joi');
-
+var Inert = require('inert');
 var db = require('./db');
 
 var port = process.env.PORT || 9876;
 var server = new Hapi.Server();
 server.connection({ port: port });
-server.register({ register: require('lout') }, function(err) {
+server.register([require('vision'), require('inert'), { register: require('lout') }], function(err) {
 });
-
 // Add the routes
 server.route({
   method: 'GET',
@@ -110,6 +109,8 @@ server.route({
 });
 
 // Start the server
-server.start();
+server.start(function() {
+  console.log('Server started at %d', port); 
+});
 server.nameSpace = 'sqr';
 module.exports = server;

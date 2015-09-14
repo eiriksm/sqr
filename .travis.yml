@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-  - "0.11"
   - "0.10"
+  - "4.0"
 
-script: 
+script:
   - make test-cov
-  - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js > /dev/null 2>&1
+
+after_script:
+  - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
